@@ -22,7 +22,7 @@
 
 //引入fs模块
 let fs = require('fs')
-
+//进行简单文件写入
 fs.writeFile(__dirname+'/0620.txt','，可能是我胖了，得减肥',{
   mode:0o666,
   flag:'a'
