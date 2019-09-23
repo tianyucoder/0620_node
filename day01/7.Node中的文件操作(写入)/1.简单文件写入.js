@@ -20,10 +20,12 @@
 *                --err错误对象
 */
 
+//备注：简单文件写入是一次性将所有要写入的内容加载到内存中，随后进行写入，适用于写入较小的文件。
+
 //引入fs模块
 let fs = require('fs')
 //进行简单文件写入
-fs.writeFile(__dirname+'/0620.txt','，可能是我胖了，得减肥',{
+fs.writeFile(__dirname+'/0620.txt','美女',{
   mode:0o666,
   flag:'a'
 },function (err) {

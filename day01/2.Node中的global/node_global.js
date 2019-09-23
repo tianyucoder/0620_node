@@ -14,4 +14,4 @@
 * */
 
 //Node中禁止了全局的this指向global
-console.log(global.console.log)
+console.log(global)
