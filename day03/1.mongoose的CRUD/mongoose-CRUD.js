@@ -127,6 +127,7 @@ let dbPromise = new Promise((resolve,reject)=>{
     else console.log(err)
   })*/
 
+  //删除数据
   /*studentModel.deleteMany({age:22},(err,data)=>{
     if (!err) console.log(data)
     else console.log(err)
