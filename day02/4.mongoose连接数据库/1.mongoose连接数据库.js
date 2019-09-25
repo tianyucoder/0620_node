@@ -14,15 +14,42 @@ mongoose.connect('mongodb://localhost:27017/demo',{
   useUnifiedTopology: true
 })
 
-//3.绑定监听
-mongoose.connection.on('open',(err)=>{
+let dbPromise = new Promise((resolve,reject)=>{
+  //3.绑定监听
+  mongoose.connection.on('open',(err)=>{
     if(!err){
+      resolve()
       console.log('数据库连接成功了')
-      console.log('操作数据库的代码')
     }else{
-      console.log(err)
+      reject(err)
     }
+  })
 })
+
+
+//第一种使用Promise实例的方式
+/*dbPromise
+  .then(()=>{
+    console.log('操作数据库的代码')
+  },(err)=>{
+     console.log(err)
+  })*/
+
+//第二种使用Promise实例的方式
+/*dbPromise
+  .then(()=>{
+      console.log('操作数据库的代码')
+  }).catch((err)=>{
+      console.log(err)
+  })*/
+
+
+;(async()=>{
+  try{ await dbPromise }
+  catch(err){console.log('连接数据库失败',err)}
+  console.log('操作数据库')
+})()
+
 
 
 
