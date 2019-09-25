@@ -6,6 +6,7 @@
   "author": "zhangtianyu <zhangtianyu5177@sina.com>",
   "license": "MIT",
   "dependencies": {
+    "express": "^4.17.1",
     "mongoose": "^5.7.1"
   }
 }
