@@ -45,7 +45,7 @@ let dbPromise = new Promise((resolve,reject)=>{
 
 
 ;(async()=>{
-  try{ await dbPromise }
+  try {await dbPromise }
   catch(err){console.log('连接数据库失败',err)}
   console.log('操作数据库')
 })()
