@@ -25,7 +25,6 @@
         2.对于服务器来说，一次请求，只有一个请求对象，和一个响应对象，其他任何的request和response都是对二者的引用。
  */
 
-
 let express = require('express')
 
 let app = express()
