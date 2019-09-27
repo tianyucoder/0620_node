@@ -1,4 +1,4 @@
-/*
+1/*
  中间件：
      概念：本质上就是一个函数，包含三个参数：request、response、next
 
@@ -26,6 +26,8 @@
  */
 
 let express = require('express')
+//引入第三方的body-parser中间件，用于解析post请求体携带过来的urlencoded编码形式的参数
+//let bodyParser = require('body-parser')
 
 let app = express()
 
@@ -49,6 +51,14 @@ let app = express()
   }
 }*/
 
+//使用body-parser，解析post请求体携带过来的urlencoded编码形式的参数
+//工作方式：提取post请求体，如果是urlencoded形式编码，随后将请求体解析成一个对象，随后挂载到request身上
+//app.use(bodyParser.urlencoded({extended:true}))
+//使用内置的中间件解析post请求体携带过来的urlencoded编码形式的参数。
+app.use(express.urlencoded({extended:true}))
+//暴露静态资源
+app.use(express.static(__dirname+'/public'))
+
 
 //定义一个一级路由
 app.get('/picture',function (request,response) {
@@ -60,6 +70,23 @@ app.get('/meishi',function (request,response) {
   response.send('我是美食界面')
 })
 
+app.post('/demo',function (request,response) {
+  console.log(request.body)
+  response.send('我是post请求对应的响应')
+})
+
+app.get('/demo1',function (request,response) {
+  response.sendFile(__dirname+'/public/demo1.html')
+})
+app.get('/demo2',function (request,response) {
+  response.sendFile(__dirname+'/public/demo2.html')
+})
+app.get('/demo3',function (request,response) {
+  response.sendFile(__dirname+'/public/demo3.html')
+})
+app.get('/demo4',function (request,response) {
+  response.sendFile(__dirname+'/public/demo4.html')
+})
 
 app.listen(3000,function (err) {
   if (!err) console.log('服务器ok')

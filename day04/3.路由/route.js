@@ -28,7 +28,7 @@ app.get('/',(request,response)=>{
   //response.redirect('https://www.baidu.com') //redirect属于客户端跳转
   //response.set('demo','0620')
   response.send('ok')
-  //console.log(response.get('x-powered-by'));
+  //console.log(response.get('ETag'));
 })
 
 //根路由
