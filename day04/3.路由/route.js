@@ -5,7 +5,7 @@ let app = express()
 //根路由
 app.get('/',(request,response)=>{
   /*
-  * request提供的方法：
+   request提供的方法：
       request.query	获取查询字符串的参数，拿到的是一个对象
       request.params 获取参数路由的参数，拿到的是一个对象
       request.body 获取post请求体参数，拿到的是一个对象(但要借助一个中间件）
@@ -20,14 +20,13 @@ app.get('/',(request,response)=>{
       response.set(key,value)	自定义响应头内容
       response.get()	获取响应头指定key对应的value(不常用)
       response.status(code)	设置响应状态码
-  * */
+   */
   //console.log(request.query);
-  console.log(request.get('Host'))
+  //console.log(request.get('Host'))
   //response.download('./public/chrome.exe') //可以写相对路径
   //response.sendFile(__dirname+'/public/demo.zip') //必须写绝对路径
   //response.redirect('https://www.baidu.com') //redirect属于客户端跳转
   //response.set('demo','0620')
-  console.log(response.get('Date'));
   response.send('ok')
   //console.log(response.get('x-powered-by'));
 })
