@@ -42,6 +42,7 @@ db.then(()=>{
     }else if(re_pwd !== pwd){
       res.send('两次输入密码不一致')
     }else{
+      //可能出现错误的代码放在try中，若无错误正常走完try中所有代码，若有错误，带着错误信息进入catch
       try{
         //4.写入数据库之前，进行检查邮箱是否已经注册过了
         let findResult = await usersModel.findOne({email:email})
@@ -55,14 +56,13 @@ db.then(()=>{
         }
       }
       catch(err){
-        //1.引入报警模块
-        //2.引入计数模块
+        //1.通常会在这里引入报警模块
+        //2.通常也会引入错误计数模块
         console.log(err)
         res.send('网络不稳定稍后重试！')
       }
     }
   })
-  
 }).catch((err)=>{
     console.log(err)
 })
