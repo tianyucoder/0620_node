@@ -14,7 +14,7 @@
 <span class="err"><%=errMsg.loginErr%></span>
 <form action="http://localhost:3000/login" method="post">
   
-  邮箱：<input type="email" name="email"><span class="err"><%=errMsg.emailErr%></span><br><br>
+  邮箱：<input type="email" name="email" value="<%=errMsg.email%>"><span class="err"><%=errMsg.emailErr%></span><br><br>
   密码：<input type="password" name="pwd"><span class="err"><%=errMsg.pwdErr%></span><br><br>
   <input type="submit">
   

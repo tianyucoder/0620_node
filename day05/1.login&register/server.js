@@ -65,7 +65,7 @@ db.then(()=>{
     }
   })
 
-  //登录的路由
+  //登录的路由 ----- 业务路由
   app.post('/login',async(req,res)=>{
     //1.获取用户输入
     let {email,pwd} = req.body

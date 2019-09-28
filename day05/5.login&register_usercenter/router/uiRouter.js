@@ -12,7 +12,8 @@ let router = new Router()
 router.get('/login',(req,res)=>{
   //let url = resolve(__dirname,'../public/login.html')
   //res.sendFile(url)
-  res.render('login',{errMsg:{}})
+  let {email} = req.query
+  res.render('login',{errMsg:{email:email}})
 })
 
 //展示注册界面的路由 ---- UI路由

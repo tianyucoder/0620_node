@@ -50,7 +50,7 @@ router.post('/register',async(req,res)=>{
       await usersModel.create({email,nick_name,pwd})
       console.log(`邮箱为${email}的用户注册成功了`)
       //res.send('恭喜，注册成功！')
-      res.redirect('http://localhost:3000/login')
+      res.redirect(`/login?email=${email}`)
     }
   }
   catch(err){
@@ -86,7 +86,8 @@ router.post('/login',async(req,res)=>{
     //4.去数据库中查找是否有该邮箱同时密码是否正确
     let findResult = await usersModel.findOne({email,pwd})
     if(findResult){
-      res.redirect('http://news.baidu.com/')
+      //res.redirect('http://news.baidu.com/')
+      res.render('usercenter',{nickName:findResult.nick_name})
     }else{
       errMsg.loginErr = '用户名或密码错误'
       res.render('login',{errMsg})
