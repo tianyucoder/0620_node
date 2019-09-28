@@ -12,6 +12,8 @@ let app = express()
 app.disable('x-powered-by')
 //使用中间件解析post请求的urlencoded编码参数
 app.use(express.urlencoded({extended:true}))
+//暴露静态资源
+app.use(express.static(__dirname+'/public'))
 
 //等待数据库连接成功
 db.then(()=>{
