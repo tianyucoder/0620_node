@@ -6,8 +6,24 @@
 </head>
 <body>
 
+<!--
+        < %- % >   读取传递过来的变量，展示到所在位置，渲染标签，相对不安全
+        < %= % >   读取传递过来的变量，展示到所在位置，不渲染标签，用的多，安全
+        < % % >    在此标签里写js代码，例如：判断，循环等
+
+-->
+
 <h1>我是demo界面</h1>
-<h1><%-data%></h1>
+
+<ul>
+    <%for (var i=0; i<msg.persons.length; i++ ){
+        let item = msg.persons[i] %>
+        <li>姓名：<%=item.name%></li>
+        <li>年龄：<%=item.age%></li>
+        <hr>
+    <%}%>
+</ul>
+
 
 </body>
 </html>

@@ -7,9 +7,10 @@ app.set('view engine','ejs')
 app.set('views','./haha')
 
 app.get('/demo',(req,res)=>{
-  let str = 'hello,0620!'
+  //let str = 'hello,0620!'
   //res.sendFile(__dirname+'/haha/demo.ejs')
-  res.render('demo',{data:str})
+  let personArr = [{name:'peiqi',age:18},{name:'danni',age:19},{name:'peideluo',age:20},{name:'suxi',age:21}]
+  res.render('demo',{msg:{persons:personArr}})
 })
 
 app.listen(3000,function (err) {
