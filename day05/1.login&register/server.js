@@ -50,9 +50,10 @@ db.then(()=>{
           //能进入此判断，意味着有人已经注册过了，驳回
           res.send(`${email}邮箱已经注册过，请更换邮箱`)
         }else{
-          await usersModel.create({email:email,nick_name:nick_name,pwd:pwd})
+          await usersModel.create({email,nick_name,pwd})
           console.log(`邮箱为${email}的用户注册成功了`)
-          res.send('恭喜，注册成功！')
+          //res.send('恭喜，注册成功！')
+          res.redirect('http://localhost:3000/login')
         }
       }
       catch(err){
@@ -63,6 +64,38 @@ db.then(()=>{
       }
     }
   })
+
+  //登录的路由
+  app.post('/login',async(req,res)=>{
+    //1.获取用户输入
+    let {email,pwd} = req.body
+    //2.正则
+    let emailReg = /^[a-zA-Z0-9_]{2,20}@[a-zA-Z0-9_]{2,16}\.com$/
+    let pwdReg = /^[a-zA-Z0-9_@#$%]{6,20}$/
+    //3.校验
+    if(!emailReg.test(email)){
+      res.send('邮箱输入不合法，格式应为：用户名@主机名.com的形式，用户名2-20，主机名2-16')
+    }else if(!pwdReg.test(pwd)){
+      res.send('密码不合法，包含大小写字母，和部分特殊字符，且长度为6-20')
+    }else{
+      try{
+        //4.去数据库中查找是否有该邮箱同时密码是否正确
+        let findResult = await usersModel.findOne({email,pwd})
+        if(findResult){
+          res.redirect('http://news.baidu.com/')
+        }else{
+          res.send('用户名或密码不正确')
+        }
+      }
+      catch(err){
+        console.log(err)
+        res.send('网络不稳定，稍后重试')
+      }
+    }
+
+  })
+
+
 }).catch((err)=>{
     console.log(err)
 })
