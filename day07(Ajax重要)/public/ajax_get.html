@@ -8,6 +8,7 @@
 <h1>该页面是测试使用原生js发送Ajax的GET请求</h1>
 <button id="btn">点我使用原生js发送Ajax的GET请求</button>
 <input type="text">
+<div id="demo"></div>
 <script type="text/javascript">
   
   let btn = document.getElementById('btn')
@@ -27,15 +28,36 @@
     
     //2.绑定事件监听
     xhr.onreadystatechange = function () {
-      // xhr内部有5种状态：0、1、2、3、4
-     if(xhr.readyState === 4 && xhr.status === 200){
+      /*xhr内部有5种状态：
+      *     0：初始化状态，xhr一“诞生”就是0状态
+      *     1：请求还没有发出去，即：send方法还没有被调用，此时依然可以修改请求头。
+      *     2：请求发出去了，即：send方法已经被调用了，此时已不能修改请求头。
+      *     3：请求已经回来一部分数据了（小数据会在此阶段一次性接收完毕，大数据有待于进一步接收）
+      *     4：数据“完美”的回来了
+      *
+      * */
+      /*if(xhr.readyState === 0){
+        console.log('我是初始化状态')
+      }
+      if(xhr.readyState === 1){
+        xhr.setRequestHeader('demo',123)
+        console.log('我是1状态')
+      }
+      if(xhr.readyState === 2){
+        console.log('我是2状态')
+      }
+      if(xhr.readyState === 3){
+        console.log('我是3状态')
         console.log(xhr.response)
+      }*/
+     if(xhr.readyState === 4 && xhr.status === 200){
+       console.log(xhr.response)
        document.getElementById('demo').innerHTML = xhr.response
      }
     }
     
     //3.指定发送请求的：方式、地址、参数
-    xhr.open('get','http://localhost:3000/ajax_get?name=kobe&age=18')
+    xhr.open('get','http://localhost:3000/ajax_get?name=kobe&age=18'+'t='+Date.now())
     
     //4.把请求发出去
     xhr.send()

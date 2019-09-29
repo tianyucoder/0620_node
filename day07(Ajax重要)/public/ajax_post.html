@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>使用原生Ajax发送POST请求</title>
+</head>
+<body>
+<h1>该页面是测试使用原生js发送Ajax的POST请求</h1>
+<button id="btn">点我使用原生js发送Ajax的POST请求</button>
+<input type="text">
+<div id="demo"></div>
+<script type="text/javascript">
+  
+  let btn = document.getElementById('btn')
+  
+  btn.onclick = function () {
+    
+    //1.创建一个XMLHttpRequest实例
+    let xhr = new XMLHttpRequest()
+    
+    //2.绑定事件监听
+    xhr.onreadystatechange = function () {
+     if(xhr.readyState === 4 && xhr.status === 200){
+       console.log(xhr.response)
+       document.getElementById('demo').innerHTML = xhr.response
+     }
+    }
+    
+    //3.指定发送请求的：方式、地址、参数
+    xhr.open('post','http://localhost:3000/ajax_post')
+    
+    xhr.setRequestHeader('content-type','application/x-www-form-urlencoded')
+    //4.把请求发出去
+    xhr.send('name=kobe&age=18')
+    
+  }
+  
+  
+</script>
+
+</body>
+</html>
