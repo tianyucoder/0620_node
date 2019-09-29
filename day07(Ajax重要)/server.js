@@ -13,7 +13,7 @@ app.get('/ajax_get',function (request,response) {
 app.listen(3000,function (err) {
   if(!err){
     console.log('练习ajax请求的服务器启动成功了')
-    console.log('禁止使用编译打开网页！！！！！！！！！')
+    console.log('【禁止使用编译打开网页！！！！！！！！！】')
     console.log('测试原生Ajax-GET请求的页面是：http://localhost:3000/ajax_get.html')
   }else{
     console.log(err)
