@@ -23,4 +23,13 @@ router.get('/register',(req,res)=>{
   res.render('register',{errMsg:{}})
 })
 
+//展示个人中心界面的路由 ---- UI路由
+router.get('/user_center',(req,res)=>{
+  //let url = resolve(__dirname,'../public/register.html')
+  //res.sendFile(url)
+  let {nick_name} = req.query
+  res.render('usercenter',{nickName:nick_name})
+})
+
+
 module.exports = router

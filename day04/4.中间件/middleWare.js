@@ -56,9 +56,9 @@ let app = express()
 //app.use(bodyParser.urlencoded({extended:true}))
 //使用内置的中间件解析post请求体携带过来的urlencoded编码形式的参数。
 app.use(express.urlencoded({extended:true}))
+
 //暴露静态资源
 app.use(express.static(__dirname+'/public'))
-
 
 //定义一个一级路由
 app.get('/picture',function (request,response) {
@@ -87,6 +87,7 @@ app.get('/demo3',function (request,response) {
 app.get('/demo4',function (request,response) {
   response.sendFile(__dirname+'/public/demo4.html')
 })
+
 
 app.listen(3000,function (err) {
   if (!err) console.log('服务器ok')

@@ -5,14 +5,14 @@
 //引入Node内置的Http模块
 let http = require('http')
 //querystring专门用于解析查询字符串参数为一个对象
-let querystring = require('querystring')
+let {parse} = require('querystring')
 
 //搞一个服务员出来-------创建服务对象
 let server = http.createServer(function (request,response) {
     //请求对象：包含着客户端发给服务器的信息
     //响应对象：包含着服务器发给客户端的信息
     let params = request.url.split('?')[1]
-    let obj = querystring.parse(params)
+    let obj = parse(params)
     console.log(obj)
     let {name,age} = obj
     response.setHeader('content-type','text/html;charset=utf-8')

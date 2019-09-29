@@ -6,6 +6,8 @@
 let {Router} = require('express')
 //引入usersModel模型对象，用于增删改查
 let usersModel = require('../models/usersModel')
+//引入md5加密模块
+let sha1 = require('sha1')
 //实例化一个路由器
 let router = new Router()
 
@@ -47,7 +49,7 @@ router.post('/register',async(req,res)=>{
       errMsg.emailErr = `${email}邮箱已经注册过，请更换邮箱`
       res.render('register',{errMsg})
     }else{
-      await usersModel.create({email,nick_name,pwd})
+      await usersModel.create({email,nick_name,pwd:sha1(pwd)})
       console.log(`邮箱为${email}的用户注册成功了`)
       //res.send('恭喜，注册成功！')
       res.redirect(`/login?email=${email}`)
@@ -84,11 +86,20 @@ router.post('/login',async(req,res)=>{
 
   try{
     //4.去数据库中查找是否有该邮箱同时密码是否正确
-    let findResult = await usersModel.findOne({email,pwd})
+    let findResult = await usersModel.findOne({email,pwd:sha1(pwd)})
     if(findResult){
       //res.redirect('http://news.baidu.com/')
       //res.render('usercenter',{nickName:findResult.nick_name})
-      res.redirect(`/user_center?nick_name=${findResult.nick_name}`)
+      //res.redirect(`/user_center?nick_name=${findResult.nick_name}`)
+      //res.cookie('_id',findResult._id.toString(),{maxAge:1000 * 30})
+
+      //req.session._id = findResult._id.toString()做了四件事情，如下：
+      //1.开启一个session会话存储
+      //2.将用户的_id放进去
+      //3.获取到第一步“容器”的编码
+      //4.返回给客户端一个cookie，里面包含“容器”编号
+      req.session._id = findResult._id.toString()
+      res.redirect('/user_center')
     }else{
       errMsg.loginErr = '用户名或密码错误'
       res.render('login',{errMsg})
