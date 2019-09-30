@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<button id="btn">点我获取验证码</button>
+
+<script type="text/javascript">
+  
+  let btn = document.getElementById('btn')
+  let lastXhr
+  btn.onclick = function () {
+    if(lastXhr){
+      lastXhr.abort()
+    }
+    lastXhr = getCode()
+  }
+  
+  //获取验证码的方法
+  function getCode() {
+    let xhr = new XMLHttpRequest()
+    xhr.onreadystatechange = function () {
+      if(xhr.readyState === 4 && xhr.status === 200){
+        console.log(xhr.response)
+      }
+    }
+    xhr.open('get','http://localhost:3000/get_code')
+    xhr.send()
+    //xhr身上有一个abort方法，用于终止本次请求
+    //abort的工作特点：若来得及，取消。若来不及，尽量“拒之门外”。也存在根本不能取消的情况。
+    //xhr.abort()
+    return xhr
+  }
+  
+</script>
+
+</body>
+</html>
