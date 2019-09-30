@@ -5,6 +5,7 @@
   <title>jsonp解决跨域</title>
 </head>
 <body>
+<h1>该页面是测试原生JSONP</h1>
 <button id="btn">点我获取数据</button>
 
 <!--
@@ -13,6 +14,7 @@
       2.html中可以访问外部资源的标签，发请求时，都不受同源策略的限制
    JSONP解决跨域的原理：
       1.利用了script标签发送GET请求不受同源策略的限制，（或者说标签的GET请求天然跨域）
+      2.JSONP仅仅支持GET请求跨域的解决（因为标签只能发GET请求）
 -->
 <script type="text/javascript">
   let btn = document.getElementById('btn')
@@ -22,10 +24,9 @@
     //3.提前定义好一个全局的函数
     //4.将script节点放在页面上
     //备注：jsonp只能解决get请求的跨域问题（jsonp所谓的解决跨域，实际上是：绕开了Ajax引擎）
-    
     let scriptNode = document.createElement('script')
-    scriptNode.src = 'http://localhost:3000/test?callback=haha'
-    window.haha = function (a) {
+    scriptNode.src = 'http://localhost:3000/test?callback=demo'
+    window.demo = function (a) {
       console.log(a)
     }
     document.body.appendChild(scriptNode)

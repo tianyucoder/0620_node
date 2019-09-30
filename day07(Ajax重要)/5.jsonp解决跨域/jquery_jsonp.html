@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>jquery封装的JSONP</title>
+</head>
+<body>
+<button id="btn">点我使用jquery封装的JSONP获取数据</button>
+<script type="text/javascript" src="./jquery-1.12.4.js"></script>
+<script type="text/javascript">
+  
+  let btn = $('#btn')
+  
+  btn.click(function () {
+    //完整写法
+    $.ajax('http://localhost:3000/test',{
+      method:'get',
+      dataType:'jsonp',
+      data:{name:'kobe',age:18},
+      success:function (data) {
+        console.log(data)
+      },
+      error:function (err) {
+        console.log(err)
+      }
+    })
+    
+    //简写方式
+    $.getJSON('http://localhost:3000/test?callback=?',{name:'kobe',age:18},function (data) {
+      console.log(data)
+    })
+  })
+</script>
+
+
+</body>
+</html>

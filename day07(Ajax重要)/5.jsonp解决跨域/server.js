@@ -7,8 +7,9 @@ app.use(express.urlencoded({extended:true}))
 //此路由响应get请求
 app.get('/test',function (request,response) {
   let {callback} = request.query
+  console.log(request.query)
   let data = [{name:'kobe',age:18},{name:'wade',age:19},{name:'peiqi',age:20}]
-  response.send(`${callback}(${JSON.stringify(data)})`)
+  response.send(`${callback}(${JSON.stringify(data)})`) //demo([{name:'kobe',age:18},{name:'wade',age:19},{name:'peiqi',age:20}])
 })
 
 app.listen(3000,function (err) {
