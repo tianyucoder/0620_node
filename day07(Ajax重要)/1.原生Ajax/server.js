@@ -10,7 +10,8 @@ app.use(express.urlencoded({extended:true}))
 app.get('/ajax_get',function (request,response) {
   console.log('有人给我发GET请求了')
   console.log(request.query)
-  response.send('你发来的是ajax-get请求，我接收到了')
+  let {id} = request.query
+  response.send(`你发来的是第${id}次ajax-get请求，我接收到了`)
 })
 
 app.post('/ajax_post',function (request,response) {

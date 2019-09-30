@@ -10,13 +10,13 @@
 <script type="text/javascript">
   
   let btn = document.getElementById('btn')
-  btn.onclick = function () {
-    let result = sendAjax('get','http://localhost:3000/ajax_get',{name:'kobe',age:18})
-    result.then((data)=>{
-      console.log(data)
-    },(err)=>{
-      console.log(err)
-    })
+  btn.onclick = async function () {
+    let data1 = await sendAjax('get','http://localhost:3000/ajax_get',{name:'kobe',age:18,id:1})
+    console.log(data1)
+    let data2 = await sendAjax('get','http://localhost:3000/ajax_get',{name:'kobe',age:18,id:2})
+    console.log(data2)
+    let data3 = await sendAjax('get','http://localhost:3000/ajax_get',{name:'kobe',age:18,id:3})
+    console.log(data3)
   }
 
   /**
@@ -29,22 +29,25 @@
     let myPromise = new Promise(function (resolve,reject) {
       //1.实例化一个xhr对象
       let xhr = new XMLHttpRequest()
+      
       //2.绑定监听
       xhr.onreadystatechange = function () {
         if(xhr.readyState !== 4){
           return
         }
         if(xhr.readyState === 4 && (xhr.status>=200 && xhr.status<=299)){
-          resolve(xhr.response)
+          resolve({data:xhr.response,status:xhr.status,statusText:xhr.statusText})
         }else{
-          reject('请求发送失败')
+          reject(new Error('请求失败'))
         }
       }
+      
       //加工对象参数为：urlencoded编码参数，即：把这种形式：{name:'kobe',age:18}。转换为：name=kobe&age=18
       let keysArr = Object.keys(data) //['name','age']
       let params = keysArr.reduce(function (pre,now) {
         return pre += `${now}=${data[now]}&`
       },'')
+      
       //3.调用open方法指定发送请求的：方式、地址、参数
       if(method.toLowerCase() === 'get'){
         xhr.open(method,url+'?'+params)
