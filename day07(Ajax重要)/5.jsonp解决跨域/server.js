@@ -13,6 +13,7 @@ app.get('/test',function (request,response) {
 
 app.listen(3000,function (err) {
   if(!err){
+    console.log('验证jsonp解决跨域服务器启动成功')
     console.log('【为了制造跨域问题，必须使用编译打开网页！！！！！！！！！】')
   }else{
     console.log(err)

@@ -8,8 +8,11 @@
 <button id="btn">点我获取数据</button>
 
 <!--
-    1.html中可以访问外部资源的标签，发出去的都是GET请求
-    2.html中可以访问外部资源的标签，发请求时，都不受同源策略的限制
+    准备性知识：
+      1.html中可以访问外部资源的标签，发出去的都是GET请求
+      2.html中可以访问外部资源的标签，发请求时，都不受同源策略的限制
+   JSONP解决跨域的原理：
+      1.利用了script标签发送GET请求不受同源策略的限制，（或者说标签的GET请求天然跨域）
 -->
 <script type="text/javascript">
   let btn = document.getElementById('btn')
