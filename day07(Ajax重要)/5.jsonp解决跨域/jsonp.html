@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>jsonp解决跨域</title>
+</head>
+<body>
+<button id="btn">点我获取数据</button>
+
+<!--
+    1.html中可以访问外部资源的标签，发出去的都是GET请求
+    2.html中可以访问外部资源的标签，发请求时，都不受同源策略的限制
+-->
+<script type="text/javascript">
+  let btn = document.getElementById('btn')
+  btn.onclick = function () {
+    //1.创建一个script节点
+    //2.指定script节点的src属性
+    //3.提前定义好一个全局的函数
+    //4.将script节点放在页面上
+    //备注：jsonp只能解决get请求的跨域问题（jsonp所谓的解决跨域，实际上是：绕开了Ajax引擎）
+    
+    let scriptNode = document.createElement('script')
+    scriptNode.src = 'http://localhost:3000/test?callback=haha'
+    window.haha = function (a) {
+      console.log(a)
+    }
+    document.body.appendChild(scriptNode)
+    document.body.removeChild(scriptNode)
+  }
+  
+</script>
+
+</body>
+</html>
