@@ -25,6 +25,7 @@ app.listen(3000,function (err) {
     console.log('【为了避免跨域问题，禁止使用编译打开网页！！！！！！！！！】')
     console.log('测试原生Ajax-GET请求的页面是：http://localhost:3000/ajax_get.html')
     console.log('测试原生Ajax-POST请求的页面是：http://localhost:3000/ajax_post.html')
+    console.log('测试Promise封装Ajax的地址是：http://localhost:3000/ajax_with_promise.html')
   }else{
     console.log(err)
   }
