@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>jquery封装的Ajax</title>
+</head>
+<h1>该页面是测试jquery封装的Ajax</h1>
+<body>
+<script type="text/javascript" src="./js/jquery-1.12.4.js"></script>
+
+<button id="btn1">点我使用jquery发送Ajax-GET请求</button>
+<button id="btn2">点我使用jquery发送Ajax-POST请求</button>
+
+<script type="text/javascript">
+  
+  /*
+  * 使用jquery发送Ajax几个必要的参数
+  *   1.method:发送请求的方式
+  *   2.data：要携带的数据
+  *   3.success:成功的回调
+  *   4.error:失败的回调
+  * */
+  let btn1 = $('#btn1')
+  let btn2 = $('#btn2')
+  
+  btn1.click(function () {
+    //开始使用jquery发送Ajax请求
+    //第一种写法：完整的写法
+    /*$.ajax('http://localhost:3000/ajax_get',{
+      method:'get',
+      data:{name:'kobe',age:18},
+      success:function (data) {
+        console.log(data)
+      },
+      error:function (err) {
+        console.log(err)
+      }
+    })*/
+    
+    //第二种写法：精简版写法
+    $.get('http://localhost:3000/ajax_get',{name:'kobe',age:18},function (data) {
+      console.log(data)
+    })
+  })
+  
+  btn2.click(function () {
+    //第一种发送POST请求的方式：完整版
+    /*$.ajax('http://localhost:3000/ajax_post',{
+      method:'post',
+      data:{name:'kobe',age:18},
+      success:function (data) {
+        console.log(data)
+      },
+      error:function (err) {
+        console.log(err)
+      }
+    })*/
+
+    //第二种发送POST请求的方式：完整版
+    $.post('http://localhost:3000/ajax_post',{name:'kobe',age:18},function (data) {
+      console.log(data)
+    })
+  })
+  
+</script>
+
+</body>
+</html>
