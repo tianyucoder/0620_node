@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>三级联动</title>
+</head>
+<body>
+<script type="text/javascript" src="./jquery-1.12.4.js"></script>
+
+省：<select id="province">
+        <option value="">请选择省份</option>
+    </select>&nbsp;
+市：<select id="city">
+  <option value="">请选择市</option>
+</select>&nbsp;
+
+区/县：<select id="county">
+  <option value="">请选择区/县</option>
+</select>&nbsp;
+
+<script type="text/javascript">
+  
+  let $province = $('#province')
+  let $city = $('#city')
+  let $county = $('#county')
+
+  
+  $(()=>{
+      //初始化显示所有省份信息
+     $.get('http://localhost:3000/get_all_province',(result)=>{
+       let {state,data,err} = result
+       let html = ''
+       if(state === 1){
+         data.forEach((item)=>{
+            //加工省份对象变成一个一个的option标签
+           html += `<option value="${item.province}">${item.name}</option>`
+         })
+         $province.append(html)
+       }else{
+         alert(err)
+       }
+     })
+    
+    //当用户选择了省份的时候，根据省份编码请求该省下的所有市的信息
+    $province.change(function () {
+      //1.获取用户所选择的省份编码
+      let province = this.value
+      //如果没有选择正常的省份
+      if(!province){
+        return
+      }
+      $.get(`http://localhost:3000/get_cities_by_province?province=${province}`,(result)=>{
+        let {state,data,err} = result
+        let html = ''
+        if(state === 1){
+          data.forEach((item)=>{
+            //加工省份对象变成一个一个的option标签
+            html += `<option value="${item.city}">${item.name}</option>`
+          })
+          $city.html('<option value="">请选择市</option>')
+          $county.html('<option value="">请选择区/县</option>')
+          $city.append(html)
+        }else{
+          alert(err)
+        }
+      })
+    })
+    
+    //根据省份编码、市的编码，请求区县信息
+    $city.change(function () {
+      //1.获取省份编码
+      let province = $province.val()
+      //2.获取市编码
+      let city = this.value
+      if(!city){
+        return
+      }
+      $.get(`http://localhost:3000/get_counties_by_pro_and_city?province=${province}&city=${city}`,(result)=>{
+        let {state,data,err} = result
+        let html = ''
+        if(state === 1){
+          data.forEach((item)=>{
+            //加工省份对象变成一个一个的option标签
+            html += `<option value="${item.code}">${item.name}</option>`
+          })
+          $county.html('<option value="">请选择区/县</option>')
+          $county.append(html)
+        }else{
+          alert(err)
+        }
+      })
+    })
+    
+    $county.change(function () {
+      alert(this.value)
+    })
+    
+    
+  })
+
+</script>
+
+
+</body>
+</html>
